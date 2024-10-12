@@ -24,7 +24,7 @@ jobs:
       - name: Commit possible changes
         if: ${{ env.modified }} == "true"
         run: |
-          git config --global user.name 'Wolfsauge'
+          git config --global user.name 'jacoby1218'
           git config --global user.email 'no@email'
           git commit -am "New commit discovered"
           git push
