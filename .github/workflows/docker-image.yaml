@@ -24,5 +24,5 @@ jobs:
       with:
         context: .
         tags: |
-          nschle/oobabooga:gha-latest 
+          jacoby1218/oobabooga:latest
         push: ${{ github.ref == 'refs/heads/main' }}
