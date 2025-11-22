@@ -30,7 +30,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nvi \
     nvtop \
     rsync \
-    tldr \
     tmux \
     unzip \
     vim \
