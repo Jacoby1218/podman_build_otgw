@@ -1,5 +1,5 @@
 # Use an official Ubuntu as a parent image
-FROM docker.io/library/ubuntu:jammy
+FROM docker.io/library/ubuntu:questing
 ENV PYTHONUNBUFFERED 1
 
 ARG GIT_REPO=https://github.com/oobabooga/text-generation-webui.git
