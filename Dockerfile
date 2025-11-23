@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get upgrade -y
 
 # Change global Python settings for convenience
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 \
     && apt-get install -y --no-install-recommends python-is-python3 \
     && rm -rf /var/lib/apt/lists/* 
 
