@@ -48,7 +48,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip
-RUN pip3 install --no-cache-dir --upgrade pip
+# RUN pip3 install --no-cache-dir --upgrade pip
 
 # Set up git to support LFS, and to cache credentials
 RUN git config --global credential.helper cache && \
