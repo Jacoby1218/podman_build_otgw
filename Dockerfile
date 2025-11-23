@@ -1,5 +1,5 @@
 # Use an official Ubuntu as a parent image
-FROM docker.io/library/ubuntu:questing
+FROM docker.io/library/ubuntu:jammy
 ENV PYTHONUNBUFFERED 1
 
 ARG GIT_REPO=https://github.com/oobabooga/text-generation-webui.git
@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nvi \
     nvtop \
     rsync \
+    tldr \
     tmux \
     unzip \
     vim \
@@ -70,7 +71,7 @@ RUN if [ ${DO_PULL} ]; then \
 
 # Run oobabooga installation procedure
 RUN sed -i 's|^        launch_webui()|        #launch_webui()|g' one_click.py
-RUN ./start_linux.sh <<EOF
+RUN ./start_linux.sh
 A
 N
 EOF
