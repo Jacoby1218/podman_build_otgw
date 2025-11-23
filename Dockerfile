@@ -71,10 +71,7 @@ RUN if [ ${DO_PULL} ]; then \
 
 # Run oobabooga installation procedure
 RUN sed -i 's|^        launch_webui()|        #launch_webui()|g' one_click.py
-RUN ./start_linux.sh >>EOF \
-A \
-N \
-EOF \
+RUN GPU_CHOICE=A LAUNCH_AFTER_INSTALL=FALSE INSTALL_EXTENSIONS=TRUE ./start_linux.sh >>EOF \
 RUN sed -i 's|^        #launch_webui()|        launch_webui()|g' one_click.py
 
 # Make port 7860, 5000 and 22 available on the network
