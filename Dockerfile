@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /etc/ssh/ssh_host_*
 
 # Upgrade all installed packages
-RUN apt-get upgrade -y
+RUN apt-get upgrade -y \
 	&& apt-get clean
 
 # Change global Python settings for convenience
