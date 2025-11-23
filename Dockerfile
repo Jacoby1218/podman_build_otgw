@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Upgrade all installed packages
 RUN apt-get upgrade -y
+	&& apt-get clean
 
 # Change global Python settings for convenience
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 \
