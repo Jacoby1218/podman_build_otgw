@@ -71,7 +71,7 @@ RUN if [ ${DO_PULL} ]; then \
 
 # Run oobabooga installation procedure
 RUN sed -i 's|^        launch_webui()|        #launch_webui()|g' one_click.py
-RUN ./start_linux.sh
+RUN ./start_linux.sh >>EOF
 A
 N
 EOF
