@@ -1,5 +1,5 @@
 # Use an official Ubuntu as a parent image
-FROM docker.io/library/ubuntu:questing
+FROM docker.io/library/ubuntu:jammy
 ENV PYTHONUNBUFFERED 1
 
 ARG GIT_REPO=https://github.com/oobabooga/text-generation-webui.git
@@ -9,8 +9,8 @@ ENV DO_PULL $DO_PULL
 # Set the working directory in the container
 WORKDIR /workspace/text-generation-webui
 
-# Install additional software, remove any SSH host keys
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Add deadsnakes ppa, Install additional software, remove any SSH host keys
+RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     ca-certificates \
@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nvi \
     nvtop \
     rsync \
-    tldr-py \
+    tldr \
     tmux \
     unzip \
     vim \
@@ -39,17 +39,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zsh \
     && rm -rf /etc/ssh/ssh_host_*
 
+# Set locale
+RUN apt-get install -y locales && \
+    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
+
 # Upgrade all installed packages
-RUN apt-get upgrade -y \
-	&& apt-get clean
+RUN apt-get upgrade -y
 
 # Change global Python settings for convenience
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1 \
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
     && apt-get install -y --no-install-recommends python-is-python3 \
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip
-# RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir --upgrade pip
 
 # Set up git to support LFS, and to cache credentials
 RUN git config --global credential.helper cache && \
@@ -67,7 +71,7 @@ RUN if [ ${DO_PULL} ]; then \
 
 # Run oobabooga installation procedure
 RUN sed -i 's|^        launch_webui()|        #launch_webui()|g' one_click.py
-RUN GPU_CHOICE=A LAUNCH_AFTER_INSTALL=FALSE INSTALL_EXTENSIONS=FALSE ./start_linux.sh >>EOF \
+RUN GPU_CHOICE=A LAUNCH_AFTER_INSTALL=FALSE INSTALL_EXTENSIONS=FALSE ./start_linux.sh
 RUN sed -i 's|^        #launch_webui()|        launch_webui()|g' one_click.py
 
 # Make port 7860, 5000 and 22 available on the network
