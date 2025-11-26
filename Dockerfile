@@ -15,9 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteract
     curl \
     ca-certificates \
     dumb-init \
-    python3.13 \
-	python3.13-venv \
-	python3.13-distutils \
+    python3.13-full \
     python3-pip \
     git \
     ssh \
