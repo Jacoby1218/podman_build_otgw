@@ -10,7 +10,7 @@ ENV DO_PULL $DO_PULL
 WORKDIR /workspace/text-generation-webui
 
 # Add deadsnakes ppa, Install additional software, remove any SSH host keys
-RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa && apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     ca-certificates \
@@ -40,9 +40,9 @@ RUN apt-get update && apt-get install -y software-properties-common && add-apt-r
     && rm -rf /etc/ssh/ssh_host_*
 
 # Set locale
-RUN apt-get install -y locales && \
-    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+# RUN apt-get install -y locales && \
+#    localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+# ENV LANG en_US.utf8
 
 # Upgrade all installed packages
 RUN apt-get upgrade -y
