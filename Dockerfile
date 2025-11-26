@@ -53,7 +53,9 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
     && rm -rf /var/lib/apt/lists/* 
 
 # Upgrade pip
-RUN pip3 install --no-cache-dir --upgrade pip
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+	&& python3 ./get-pip.py \
+	&& python3 -m pip install --no-cache-dir --upgrade pip
 
 # Set up git to support LFS, and to cache credentials
 RUN git config --global credential.helper cache && \
@@ -78,7 +80,7 @@ RUN sed -i 's|^        #launch_webui()|        launch_webui()|g' one_click.py
 EXPOSE 7860 5000 22
 
 # Install Huggingface tools
-RUN pip3 install --no-cache-dir hf_transfer huggingface-hub[cli]
+RUN python3 -m pip install --no-cache-dir hf_transfer huggingface-hub[cli]
 
 # Install custom supplemental scripts and configurations
 WORKDIR /
