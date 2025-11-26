@@ -10,7 +10,7 @@ ENV DO_PULL $DO_PULL
 WORKDIR /workspace/text-generation-webui
 
 # Add deadsnakes ppa, Install additional software, remove any SSH host keys
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa && apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common tzdata && add-apt-repository ppa:deadsnakes/ppa && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     ca-certificates \
